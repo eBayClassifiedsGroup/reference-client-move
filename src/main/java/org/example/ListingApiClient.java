@@ -16,17 +16,20 @@ import javax.ws.rs.core.Response.StatusType;
 public class ListingApiClient {
 
     private final AuthTokenClient authTokenClient;
-    private String ownPartnerId;
+    private final String ownPartnerId;
+    private final String moveBaseUrl;
 
     public ListingApiClient(AuthTokenClient authTokenClient,
-                            String ownPartnerId) {
+                            String ownPartnerId,
+                            String moveBaseUrl) {
         this.authTokenClient = authTokenClient;
         this.ownPartnerId = ownPartnerId;
+        this.moveBaseUrl = moveBaseUrl;
     }
 
     public Optional<Listing> getListing(String foreignId) {
         Client client = ClientBuilder.newClient();
-        WebTarget webTarget = client.target("https://sandbox.ecgmove.com/");
+        WebTarget webTarget = client.target(moveBaseUrl);
         WebTarget getListingByPartnerAndForeignId = webTarget.path("partners/{partnerName}/listings/{foreignId}");
 
         String bearerToken = authTokenClient.getJwt();

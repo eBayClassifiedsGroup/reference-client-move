@@ -26,9 +26,28 @@ openApiGenerate {
     logToStderr = true
 }
 
+
+openApiGenerate {
+    generatorName = "jaxrs-jersey"
+    inputSpec = "https://api.ecgmove.com/docs/spec/images"
+    outputDir = "$buildDir/gen-sellermodel".toString()
+    apiPackage = "ignorethis"
+    invokerPackage = "ignorethis"
+    modelPackage = "ecg.move.sellermodel.imageapi"
+    configOptions = [
+            dateLibrary: "legacy"
+    ]
+    systemProperties = [
+            modelDocs: "false"
+    ]
+    logToStderr = true
+}
+
+
 task deleteBrokenGeneratedStuff(dependsOn: ['openApiGenerate'], type: Delete) {
     // this removes a number of generated stuff that is not needed (and in parts broken)
     delete "$buildDir/gen-sellermodel/src/gen/java/ecg/move/sellermodel/ignorethis",
+            "$buildDir/gen-sellermodel/src/gen/java/ecg/move/sellermodel/ignorethis",
             "$buildDir/gen-sellermodel/src/gen/java/ignorethis"
     followSymlinks = true
 }
@@ -41,6 +60,7 @@ sourceSets {
 dependencies {
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.25.1'
     compile 'org.glassfish.jersey.core:jersey-client:2.25.1'
+    compile 'org.glassfish.jersey.media:jersey-media-multipart:2.25.1'
     compile 'javax.validation:validation-api:1.0.0.GA'
     compile 'javax.activation:activation:1.1'
     implementation "javax.xml.bind:jaxb-api:2.2.11"
