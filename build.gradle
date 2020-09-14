@@ -1,7 +1,6 @@
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-
 plugins {
     id 'java'
+    id 'org.openapi.generator' version '4.2.2'
 }
 
 group 'org.example'
@@ -11,7 +10,44 @@ repositories {
     mavenCentral()
 }
 
+openApiGenerate {
+    generatorName = "jaxrs-jersey"
+    inputSpec = "https://api.ecgmove.com/docs/spec/listings"
+    outputDir = "$buildDir/gen-sellermodel".toString()
+    apiPackage = "ignorethis"
+    invokerPackage = "ignorethis"
+    modelPackage = "ecg.move.sellermodel.listing"
+    configOptions = [
+            dateLibrary: "legacy"
+    ]
+    systemProperties = [
+            modelDocs: "false"
+    ]
+    logToStderr = true
+}
+
+task deleteBrokenGeneratedStuff(dependsOn: ['openApiGenerate'], type: Delete) {
+    // this removes a number of generated stuff that is not needed (and in parts broken)
+    delete "$buildDir/gen-sellermodel/src/gen/java/ecg/move/sellermodel/ignorethis",
+            "$buildDir/gen-sellermodel/src/gen/java/ignorethis"
+    followSymlinks = true
+}
+task pojoGen(dependsOn: ['deleteBrokenGeneratedStuff'])
+
+sourceSets {
+    main.java.srcDirs += "${project.buildDir}/gen-sellermodel/src/gen/java"
+}
+
 dependencies {
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.25.1'
+    compile 'org.glassfish.jersey.core:jersey-client:2.25.1'
+    compile 'javax.validation:validation-api:1.0.0.GA'
+    compile 'javax.activation:activation:1.1'
+    implementation "javax.xml.bind:jaxb-api:2.2.11"
+    implementation "com.sun.xml.bind:jaxb-core:2.2.11"
+    implementation "com.sun.xml.bind:jaxb-impl:2.2.11"
+    implementation 'io.swagger:swagger-annotations:1.5.20'
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
     testImplementation("org.assertj:assertj-core:3.16.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
@@ -22,6 +58,8 @@ test {
 
     }
     testLogging {
-        events TestLogEvent.STARTED, TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED
+        events 'FAILED', 'SKIPPED', "PASSED"
+        showStandardStreams = false
+        exceptionFormat = 'full'
     }
 }

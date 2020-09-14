@@ -1,3 +1,12 @@
-## Gradle, Junit, AssertJ Template Repository
+# Reference Client for MoVe Listing API
 
-A plain repo with support for Java, AssertJ and Junit 5. Ideal to try something out quickly without the hassle of setting up gradle.
+This repository contains a reference client implementation for the MoVe Listing API. It uses a simple Java Jersey doing REST calls.
+It aims to be as simple and readible as possible.  
+
+## How Do I Use Client?
+
+The implementation contains 2 parts:
+
+1) the client itself, utilizing JaxRs/Jersey
+1) 
+It can be read as a collection of common usage scenarios or like a [contract test](https://martinfowler.com/bliki/ContractTest.html).  

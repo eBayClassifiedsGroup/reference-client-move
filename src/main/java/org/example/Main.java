@@ -2,7 +2,16 @@ package org.example;
 
 public class Main {
 
-    public static void main(String[] args) {
+    private final ListingApiClient listingApiClient;
 
+    public Main() {
+        RuntimeConfig config = new RuntimeConfig();
+        AuthTokenClient authTokenClient = new AuthTokenClient(config);
+        listingApiClient = new ListingApiClient(authTokenClient, config.getPartnerId());
     }
+
+    public ListingApiClient getListingApiClient() {
+        return listingApiClient;
+    }
+
 }
