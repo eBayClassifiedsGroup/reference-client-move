@@ -13,13 +13,13 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status.Family;
 import javax.ws.rs.core.Response.StatusType;
 
-public class ListingApiClient {
+public class ListingLifecycleApiClient {
 
     private final AuthTokenClient authTokenClient;
     private final String ownPartnerId;
     private final String moveBaseUrl;
 
-    public ListingApiClient(AuthTokenClient authTokenClient,
+    public ListingLifecycleApiClient(AuthTokenClient authTokenClient,
                             String ownPartnerId,
                             String moveBaseUrl) {
         this.authTokenClient = authTokenClient;

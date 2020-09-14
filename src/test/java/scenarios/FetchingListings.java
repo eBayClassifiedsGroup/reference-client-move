@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import ecg.move.sellermodel.listing.Listing;
 import java.util.Optional;
 import java.util.UUID;
-import org.example.ListingApiClient;
+import org.example.ListingLifecycleApiClient;
 import org.example.Main;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +16,9 @@ class FetchingListings {
     @Test
     void reading_nonexistent_listing_yields_404() {
         String madeUpForeignId = UUID.randomUUID().toString();
-        ListingApiClient listingApiClient = main.getListingApiClient();
+        ListingLifecycleApiClient listingLifecycleApiClient = main.getListingLifecycleApiClient();
 
-        Optional<Listing> listing = listingApiClient.getListing(madeUpForeignId);
+        Optional<Listing> listing = listingLifecycleApiClient.getListing(madeUpForeignId);
 
         assertThat(listing).isEmpty();
     }

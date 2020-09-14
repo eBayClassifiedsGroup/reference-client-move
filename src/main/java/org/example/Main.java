@@ -2,19 +2,21 @@ package org.example;
 
 public class Main {
 
-    private final ListingApiClient listingApiClient;
+    private final ListingLifecycleApiClient listingLifecycleApiClient;
     private final ImageApiClient imageApiClient;
+    private final ReferenceDataApiClient referenceDataApiClient;
     private final RuntimeConfig config;
 
     public Main() {
         config = new RuntimeConfig();
         AuthTokenClient authTokenClient = new AuthTokenClient(config);
-        listingApiClient = new ListingApiClient(authTokenClient, config.getPartnerId(), config.getMoveBaseUrl());
+        listingLifecycleApiClient = new ListingLifecycleApiClient(authTokenClient, config.getPartnerId(), config.getMoveBaseUrl());
         imageApiClient = new ImageApiClient(authTokenClient, config.getMoveBaseUrl());
+        referenceDataApiClient = new ReferenceDataApiClient(config.getMoveBaseUrl());
     }
 
-    public ListingApiClient getListingApiClient() {
-        return listingApiClient;
+    public ListingLifecycleApiClient getListingLifecycleApiClient() {
+        return listingLifecycleApiClient;
     }
 
     public ImageApiClient getImageApiClient() {
@@ -23,5 +25,9 @@ public class Main {
 
     public RuntimeConfig getConfig() {
         return config;
+    }
+
+    public ReferenceDataApiClient getReferenceDataApiClient() {
+        return referenceDataApiClient;
     }
 }
