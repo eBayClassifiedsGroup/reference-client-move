@@ -1,4 +1,4 @@
-package org.example;
+package org.example.moveclient;
 
 import java.io.IOException;
 import java.net.URL;

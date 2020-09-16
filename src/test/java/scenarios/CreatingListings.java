@@ -18,9 +18,9 @@ import ecg.move.sellermodel.listing.Seller.TypeEnum;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import org.example.ImageApiClient;
-import org.example.Main;
-import org.example.ReferenceDataApiClient;
+import org.example.moveclient.ImageApiClient;
+import org.example.moveclient.Main;
+import org.example.moveclient.ReferenceDataApiClient;
 import org.junit.jupiter.api.Test;
 
 class CreatingListings {

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.moveclient;
 
 import static java.lang.String.format;
 

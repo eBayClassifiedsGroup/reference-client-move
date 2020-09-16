@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import ecg.move.sellermodel.listing.Listing;
 import java.util.Optional;
 import java.util.UUID;
-import org.example.ListingLifecycleApiClient;
-import org.example.Main;
+import org.example.moveclient.ListingLifecycleApiClient;
+import org.example.moveclient.Main;
 import org.junit.jupiter.api.Test;
 
 class FetchingListings {
