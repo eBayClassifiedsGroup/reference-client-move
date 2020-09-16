@@ -1,6 +1,12 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Reference Client for MoVe Listing API
 
 This repository contains a reference client implementation for the MoVe Listing API. It uses a simple Java Jersey doing REST calls and aims to be as simple and readable as possible.  
+
+## Intended Audience
+
+If you are planning to integrate with eCG Motors Vertical (MoVe) and are interested in technical details around API usage, this project is for you.
 
 ## How To Use This
 
