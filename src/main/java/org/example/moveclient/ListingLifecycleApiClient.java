@@ -1,9 +1,9 @@
-/************************************************************************
-Copyright 2020 mobile.de GmbH.
-Author/Developer: Philipp Bartsch
-
-This code is licensed under MIT license (see LICENSE for details)
-**************************************************************************/
+//------------------------------------------------------------------
+// Copyright 2020 mobile.de GmbH.
+// Author/Developer: Philipp Bartsch
+//
+// This code is licensed under MIT license (see LICENSE for details)
+//------------------------------------------------------------------
 package org.example.moveclient;
 
 import static java.lang.String.format;
@@ -21,18 +21,26 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status.Family;
 import javax.ws.rs.core.Response.StatusType;
 
+/*
+    The Listing API is the main API you likely will interact with. It offers a number of resources allowing you do basic
+    CRUD operations. It furthermore supports basic state transitions like "pause a listing", "make a listing visible"
+    and so on.
+    Whenever the content of a listing is affected, the listing is subject to validation, which ensures that the content
+    provided by the caller is sufficient and understandable. Validation errors result in a 400 response with errors
+    description(s) in the response body.
+ */
 public class ListingLifecycleApiClient {
 
-    private final AuthTokenClient authTokenClient;
+    private final String bearerToken;
     private final String myPartnerId;
     private final String moveBaseUrl;
 
     public ListingLifecycleApiClient(
-        AuthTokenClient authTokenClient,
+        String bearerToken,
         String myPartnerId,
         String moveBaseUrl) {
+        this.bearerToken = bearerToken;
 
-        this.authTokenClient = authTokenClient;
         this.myPartnerId = myPartnerId;
         this.moveBaseUrl = moveBaseUrl;
     }
@@ -43,7 +51,6 @@ public class ListingLifecycleApiClient {
             .resolveTemplate("partnerId", myPartnerId)
             .resolveTemplate("foreignId", foreignId);
 
-        String bearerToken = authTokenClient.getJwt();
         Response response = webTarget
             .request()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + bearerToken)
@@ -64,7 +71,6 @@ public class ListingLifecycleApiClient {
             .resolveTemplate("partnerId", myPartnerId)
             .resolveTemplate("myListingId", myListingId);
 
-        String bearerToken = authTokenClient.getJwt();
         Response response = webTarget
             .request()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + bearerToken)

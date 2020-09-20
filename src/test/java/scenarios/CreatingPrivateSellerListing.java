@@ -1,9 +1,9 @@
-/************************************************************************
-Copyright 2020 mobile.de GmbH.
-Author/Developer: Philipp Bartsch
-
-This code is licensed under MIT license (see LICENSE for details)
-**************************************************************************/
+//------------------------------------------------------------------
+// Copyright 2020 mobile.de GmbH.
+// Author/Developer: Philipp Bartsch
+//
+// This code is licensed under MIT license (see LICENSE for details)
+//------------------------------------------------------------------
 package scenarios;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,7 +29,7 @@ import org.example.moveclient.Main;
 import org.example.moveclient.ReferenceDataApiClient;
 import org.junit.jupiter.api.Test;
 
-class CreatingListings {
+class CreatingPrivateSellerListing {
 
     Main main = new Main();
     ReferenceDataApiClient referenceDataApiClient = main.getReferenceDataApiClient();
@@ -63,7 +63,7 @@ class CreatingListings {
         listing.setEpsImages(List.of(image));
         listing.setTitle("Awesome Car For Sale!");
         listing.setHtmlDescription("<h1>Check this out!</h1><p>And here is some description</p>");
-        listing.setSeller(exampleFsboSeller());
+        listing.setSeller(examplePrivateSeller());
         listing.setPrices(examplePrices());
         listing.setMake(carMake.getId());
         listing.setFuel(FuelEnum.PETROL_PREMIUM); // fuel is defined as part of the API spec
@@ -103,18 +103,17 @@ class CreatingListings {
     }
 
     private EpsImage uploadListingPicture() {
-        return imageApiClient.postPicture(
-            main.getConfig().getPartnerId(),
-            "example-car-picture.jpg").map(rsp -> {
-            EpsImage epsImage = new EpsImage();
-            epsImage.setBaseUrl(rsp.getImageBaseUrl());
-            return epsImage;
-        }).orElseThrow();
+        return imageApiClient.postPicture("example-car-picture.jpg")
+            .map(rsp -> {
+                EpsImage epsImage = new EpsImage();
+                epsImage.setBaseUrl(rsp.getImageBaseUrl());
+                return epsImage;
+            }).orElseThrow();
     }
 
-    private Seller exampleFsboSeller() {
+    private Seller examplePrivateSeller() {
         Seller seller = new Seller();
-        seller.setType(TypeEnum.FSBO); // watch out: if you provide a dealer listing, the foreignId must be known, see TODO article link
+        seller.setType(TypeEnum.FSBO); // private sellers are called "For Sale By Owner", FSBO
         seller.setForeignId(UUID.randomUUID().toString());
 
         return seller;
