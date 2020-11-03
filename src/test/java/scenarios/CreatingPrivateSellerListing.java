@@ -103,6 +103,7 @@ class CreatingPrivateSellerListing {
     }
 
     private EpsImage uploadListingPicture() {
+        // Photo by Aldo Picaso from Pexels, see https://www.pexels.com/photo/yellow-car-toy-982093/
         return imageApiClient.postPicture("example-car-picture.jpg")
             .map(rsp -> {
                 EpsImage epsImage = new EpsImage();
