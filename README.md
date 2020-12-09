@@ -1,4 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Badge](https://github.com/eBayClassifiedsGroup/reference-client-move/workflows/Java%20CI/badge.svg)
+[Github Home](https://github.com/eBayClassifiedsGroup/reference-client-move/)
+
 
 # Reference Client for MoVe Listing API
 
@@ -13,7 +16,7 @@ This repository contains 2 parts:
 1) a reference API client written in basic Java with JaxRs/Jersey
 1) a number of tests that cover [common usage scenarios](./src/test/java/scenarios)
 
-To inspect the [implementation](./src/main/java/org/example/moveclient/), run `./gradlew clean compileJava` first to generate necessary client classes out of [MoVe's Listing API spec](https://api.ecgmove.com/docs/spec/listings). Feel free to create own clients based on this spec as it fits your needs.
+To inspect the [implementation](./src/main/java/org/example/moveclient/), run `./gradlew clean compileJava` first to generate necessary client classes out of [MoVe`s Listing API spec](https://api.ecgmove.com/docs/spec/listings). Feel free to create own clients based on this spec as it fits your needs.
 
 ## How to run the tests
 
